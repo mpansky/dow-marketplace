@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0f;
+  --color-foreground: #f8fafc;
+  --color-card: #111118;
+  --color-card-foreground: #f8fafc;
+  --color-popover: #111118;
+  --color-popover-foreground: #f8fafc;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #f8fafc;
+  --color-secondary: #1e1e2e;
+  --color-secondary-foreground: #f8fafc;
+  --color-muted: #1e1e2e;
+  --color-muted-foreground: #94a3b8;
+  --color-accent-foreground: #f8fafc;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  --color-ring: #3b82f6;
+
+  --color-indopacom: #0077B6;
+  --color-cybercom: #39FF14;
+
+  --color-vulcan: #f97316;
+  --color-tradewinds: #3b82f6;
+  --color-lynx: #22c55e;
+  --color-eris: #a855f7;
+  --color-otconsortia: #6b7280;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Storefront accent CSS variable */
+:root {
+  --storefront-accent: #3b82f6;
+  --storefront-accent-rgb: 59, 130, 246;
+  --storefront-accent-dim: rgba(59, 130, 246, 0.15);
+}
+
+:root[data-storefront="indopacom"] {
+  --storefront-accent: #0077B6;
+  --storefront-accent-rgb: 0, 119, 182;
+  --storefront-accent-dim: rgba(0, 119, 182, 0.15);
+}
+
+:root[data-storefront="cybercom"] {
+  --storefront-accent: #39FF14;
+  --storefront-accent-rgb: 57, 255, 20;
+  --storefront-accent-dim: rgba(57, 255, 20, 0.15);
+}
+
+/* Chat FAB glow animation */
+@keyframes fab-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(var(--storefront-accent-rgb), 0.3); }
+  50% { box-shadow: 0 0 24px rgba(var(--storefront-accent-rgb), 0.6); }
+}
+
+.fab-glow {
+  animation: fab-glow 8s ease-in-out infinite;
+}
+
+/* Typing indicator */
+@keyframes typing-wave {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.typing-dot {
+  animation: typing-wave 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Scan line for CYBERCOM */
+@keyframes scanline {
+  0% { top: -5%; }
+  100% { top: 105%; }
+}
+
+.cybercom-scanline {
+  position: relative;
+  overflow: hidden;
+}
+.cybercom-scanline::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.15), transparent);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Topographic map pattern for INDOPACOM */
+.indopacom-topo {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q25 30 50 50 T100 50' fill='none' stroke='rgba(0,119,182,0.07)' stroke-width='1'/%3E%3Cpath d='M0 30 Q25 10 50 30 T100 30' fill='none' stroke='rgba(0,119,182,0.05)' stroke-width='1'/%3E%3Cpath d='M0 70 Q25 50 50 70 T100 70' fill='none' stroke='rgba(0,119,182,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Grid pattern for CYBERCOM */
+.cybercom-grid {
+  background-image:
+    linear-gradient(rgba(57, 255, 20, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glassmorphism for chat panel */
+.glass-panel {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
