@@ -1,4 +1,4 @@
-import { Search, Bell, ChevronDown, ArrowLeftRight } from 'lucide-react'
+import { Search, Bell, ArrowLeftRight, Menu } from 'lucide-react'
 import { useApp } from '@/context/AppContext'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -23,18 +23,28 @@ export function TopNav() {
   const unreadCount = state.notifications.filter((n) => !n.read && n.role === state.currentRole).length
 
   return (
-    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-md flex items-center px-4 gap-4 sticky top-0 z-40">
+    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-md flex items-center px-3 md:px-4 gap-2 md:gap-4 sticky top-0 z-40">
+      {/* Mobile Hamburger */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="md:hidden flex-shrink-0"
+        onClick={() => dispatch({ type: 'SET_MOBILE_SIDEBAR_OPEN', payload: true })}
+      >
+        <Menu className="w-5 h-5" />
+      </Button>
+
       {/* Logo */}
-      <div className="flex items-center gap-2 min-w-[180px]">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm"
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
           style={{ background: `linear-gradient(135deg, ${sf.accentColor}, ${sf.accentColor}88)` }}>
           DW
         </div>
-        <span className="font-semibold text-sm">DoW Marketplace</span>
+        <span className="font-semibold text-sm hidden md:inline">DoW Marketplace</span>
       </div>
 
-      {/* Storefront Switcher */}
-      <div className="flex items-center gap-1 bg-secondary rounded-lg p-0.5">
+      {/* Storefront Switcher - desktop only */}
+      <div className="hidden md:flex items-center gap-1 bg-secondary rounded-lg p-0.5">
         {storefrontTabs.map((tab) => (
           <button
             key={tab.id}
@@ -55,10 +65,10 @@ export function TopNav() {
         ))}
       </div>
 
-      {/* Global Search Trigger */}
+      {/* Global Search Trigger - desktop */}
       <button
         onClick={() => dispatch({ type: 'SET_SEARCH_OPEN', payload: true })}
-        className="flex items-center gap-2 px-3 py-1.5 bg-secondary rounded-lg text-sm text-muted-foreground hover:text-foreground transition-colors flex-1 max-w-md"
+        className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-secondary rounded-lg text-sm text-muted-foreground hover:text-foreground transition-colors flex-1 max-w-md"
       >
         <Search className="w-4 h-4" />
         <span>Search challenges, vendors, capabilities...</span>
@@ -69,8 +79,18 @@ export function TopNav() {
 
       <div className="flex-1" />
 
+      {/* Mobile search icon */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="md:hidden flex-shrink-0"
+        onClick={() => dispatch({ type: 'SET_SEARCH_OPEN', payload: true })}
+      >
+        <Search className="w-4 h-4" />
+      </Button>
+
       {/* Notifications */}
-      <Button variant="ghost" size="icon" className="relative">
+      <Button variant="ghost" size="icon" className="relative flex-shrink-0">
         <Bell className="w-4 h-4" />
         {unreadCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-destructive text-destructive-foreground rounded-full text-[10px] flex items-center justify-center font-bold">
@@ -79,16 +99,16 @@ export function TopNav() {
         )}
       </Button>
 
-      {/* Role Badge */}
-      <Badge variant="accent" className="cursor-pointer">
+      {/* Role Badge - desktop only */}
+      <Badge variant="accent" className="cursor-pointer hidden md:inline-flex">
         {roleLabels[state.currentRole]}
       </Badge>
 
-      {/* Role Switcher */}
+      {/* Role Switcher - desktop only */}
       <Button
         variant="ghost"
         size="sm"
-        className="text-xs text-muted-foreground"
+        className="text-xs text-muted-foreground hidden md:inline-flex"
         onClick={() => dispatch({ type: 'SET_AUTHENTICATED', payload: false })}
       >
         <ArrowLeftRight className="w-3 h-3 mr-1" />
@@ -97,7 +117,7 @@ export function TopNav() {
 
       {/* User Avatar */}
       {state.currentUser && (
-        <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-xs font-medium">
+        <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-xs font-medium flex-shrink-0">
           {getInitials(state.currentUser.name)}
         </div>
       )}

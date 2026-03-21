@@ -93,7 +93,7 @@ export function PipelineBoard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           <Kanban className="w-6 h-6" style={{ color: 'var(--storefront-accent)' }} />
           <div>
@@ -105,8 +105,8 @@ export function PipelineBoard() {
         </div>
 
         {/* Storefront Filter */}
-        <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-muted-foreground" />
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />
           <div className="flex gap-1">
             {storefrontOptions.map((opt) => (
               <Button
@@ -114,7 +114,7 @@ export function PipelineBoard() {
                 variant={storefrontFilter === opt.value ? 'accent' : 'ghost'}
                 size="sm"
                 onClick={() => setStorefrontFilter(opt.value)}
-                className="text-xs"
+                className="text-xs whitespace-nowrap"
               >
                 {opt.label}
               </Button>
@@ -134,7 +134,7 @@ export function PipelineBoard() {
             return (
               <div
                 key={stage}
-                className="w-[220px] flex-shrink-0 rounded-xl border border-border bg-card/30 flex flex-col"
+                className="w-[180px] sm:w-[220px] flex-shrink-0 rounded-xl border border-border bg-card/30 flex flex-col"
               >
                 {/* Column Header */}
                 <div className="p-3 border-b border-border">

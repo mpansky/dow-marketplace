@@ -14,14 +14,14 @@ export function MetricsStrip({ metrics }: { metrics: MetricCard[] }) {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
       {metrics.map((metric) => (
         <Card key={metric.label} className="bg-card/50">
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-muted-foreground">{metric.label}</span>
               {metric.icon && (
                 <span className="text-muted-foreground">{metric.icon}</span>
               )}
             </div>
-            <div className="text-2xl font-bold font-mono">{metric.value}</div>
+            <div className="text-xl md:text-2xl font-bold font-mono">{metric.value}</div>
             {metric.change && (
               <div
                 className={cn(

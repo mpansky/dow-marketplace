@@ -2,15 +2,15 @@ import { useState, useMemo } from 'react'
 import { useApp } from '@/context/AppContext'
 import type { Match, PlatformSource } from '@/types'
 import { PLATFORM_LABELS, PLATFORM_COLORS } from '@/types'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
-  CheckCircle2, XCircle, Flag, Inbox, Filter, ChevronDown, ChevronUp,
+  CheckCircle2, XCircle, Flag, Inbox, ChevronDown, ChevronUp,
 } from 'lucide-react'
-import { cn, generateId } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 type FilterTab = 'all' | 'pending' | 'approved' | 'rejected'
 
@@ -39,7 +39,6 @@ export function CurationQueue() {
         'AI-generated match based on capability overlap and past performance alignment.',
       platformSource: ['vulcan', 'tradewinds', 'lynx'][
         Math.floor(
-          // Deterministic based on id for consistent renders
           parseInt(sub.id.replace(/\D/g, ''), 10) % 3
         )
       ] as PlatformSource,
@@ -85,7 +84,6 @@ export function CurationQueue() {
       curatedBy: state.currentUser?.id,
       curatedAt: new Date().toISOString(),
     }
-    // If already in state, update; otherwise add
     if (state.matches.find((m) => m.id === match.id)) {
       dispatch({ type: 'UPDATE_MATCH', payload: updated })
     } else {
@@ -129,10 +127,10 @@ export function CurationQueue() {
         </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center justify-between">
+      {/* Filter Tabs + Bulk Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as FilterTab)}>
-          <TabsList>
+          <TabsList className="overflow-x-auto no-scrollbar">
             <TabsTrigger value="all" className="text-xs">
               All <Badge variant="secondary" className="ml-1.5 text-[10px]">{counts.all}</Badge>
             </TabsTrigger>
@@ -183,8 +181,8 @@ export function CurationQueue() {
         )}
       </div>
 
-      {/* Table */}
-      <Card>
+      {/* Desktop Table */}
+      <Card className="hidden md:block">
         <CardContent className="p-0">
           <ScrollArea className="max-h-[calc(100vh-320px)]">
             <table className="w-full text-sm">
@@ -332,6 +330,107 @@ export function CurationQueue() {
           </ScrollArea>
         </CardContent>
       </Card>
+
+      {/* Mobile Card List */}
+      <div className="md:hidden space-y-3">
+        {/* Select all header */}
+        <div className="flex items-center gap-2 px-1">
+          <input
+            type="checkbox"
+            checked={selectedIds.size === filteredMatches.length && filteredMatches.length > 0}
+            onChange={toggleSelectAll}
+            className="rounded border-border bg-secondary"
+          />
+          <span className="text-xs text-muted-foreground">Select all</span>
+        </div>
+
+        {filteredMatches.map((match) => (
+          <Card key={match.id} className="border-border">
+            <CardContent className="p-3 space-y-2">
+              {/* Row 1: checkbox + challenge title */}
+              <div className="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  checked={selectedIds.has(match.id)}
+                  onChange={() => toggleSelect(match.id)}
+                  className="rounded border-border bg-secondary mt-0.5"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-medium line-clamp-2">
+                    {getChallengeTitle(match.challengeId)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2: vendor + score */}
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">
+                  {getVendorName(match.vendorId)}
+                </span>
+                <span
+                  className={cn(
+                    'font-mono font-bold text-sm',
+                    match.score >= 90
+                      ? 'text-green-400'
+                      : match.score >= 75
+                        ? 'text-yellow-400'
+                        : 'text-muted-foreground'
+                  )}
+                >
+                  {match.score}
+                </span>
+              </div>
+
+              {/* Row 3: platform + status badges */}
+              <div className="flex items-center gap-2">
+                <Badge className={`${PLATFORM_COLORS[match.platformSource]} text-[10px] border`}>
+                  {PLATFORM_LABELS[match.platformSource]}
+                </Badge>
+                <Badge className={`${statusColors[match.curatedStatus]} text-[10px] border`}>
+                  {match.curatedStatus}
+                </Badge>
+              </div>
+
+              {/* Row 4: action buttons */}
+              <div className="flex items-center gap-1 pt-1 border-t border-border/50">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 text-xs text-green-400 hover:text-green-300 hover:bg-green-500/10 flex-1"
+                  onClick={() => handleAction(match, 'approved')}
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
+                  Approve
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 flex-1"
+                  onClick={() => handleAction(match, 'rejected')}
+                >
+                  <XCircle className="w-3.5 h-3.5 mr-1" />
+                  Reject
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 text-xs text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 flex-1"
+                  onClick={() => handleAction(match, 'flagged')}
+                >
+                  <Flag className="w-3.5 h-3.5 mr-1" />
+                  Flag
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+
+        {filteredMatches.length === 0 && (
+          <div className="text-center py-12 text-sm text-muted-foreground">
+            No matches found for this filter.
+          </div>
+        )}
+      </div>
     </div>
   )
 }

@@ -44,7 +44,7 @@ export function VendorDetail({ vendor, open, onClose }: VendorDetailProps) {
 
   return (
     <Sheet open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <SheetContent side="right" className="w-full max-w-2xl p-0 flex flex-col">
+      <SheetContent side="right" className="w-full sm:w-3/4 sm:max-w-2xl p-0 flex flex-col">
         {/* Header */}
         <div className="p-6 pb-0">
           <SheetHeader className="mb-4">

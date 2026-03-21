@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react'
 import { useApp } from '@/context/AppContext'
 import type { Barrier, BarrierStatus } from '@/types'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog'
@@ -14,7 +13,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { BarrierCard } from './BarrierCard'
 import { daysAgo, formatDate } from '@/lib/utils'
 import {
-  AlertTriangle, CheckCircle2, Clock, Eye, Flag, Layers, ShieldAlert, Users,
+  CheckCircle2, Clock, Eye, Flag, ShieldAlert, Users,
 } from 'lucide-react'
 
 const COLUMNS: { id: BarrierStatus; label: string; icon: React.ReactNode }[] = [
@@ -43,6 +42,7 @@ const categoryColors: Record<Barrier['category'], string> = {
 export function BarrierTracker() {
   const { state, dispatch } = useApp()
   const [selectedBarrier, setSelectedBarrier] = useState<Barrier | null>(null)
+  const [activeColumn, setActiveColumn] = useState<BarrierStatus>('identified')
 
   const barriersByStatus = useMemo(() => {
     const map: Record<BarrierStatus, Barrier[]> = {
@@ -122,8 +122,8 @@ export function BarrierTracker() {
         ))}
       </div>
 
-      {/* Kanban Board */}
-      <div className="grid grid-cols-5 gap-3 min-h-[600px]">
+      {/* Desktop Kanban Board */}
+      <div className="hidden md:grid grid-cols-5 gap-3 min-h-[600px]">
         {COLUMNS.map((col) => (
           <div key={col.id} className="flex flex-col">
             <div className="flex items-center gap-2 mb-3 px-1">
@@ -153,9 +153,49 @@ export function BarrierTracker() {
         ))}
       </div>
 
+      {/* Mobile Tabbed View */}
+      <div className="md:hidden space-y-3">
+        {/* Tab pills */}
+        <div className="overflow-x-auto no-scrollbar flex gap-2">
+          {COLUMNS.map((col) => (
+            <button
+              key={col.id}
+              onClick={() => setActiveColumn(col.id)}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
+                activeColumn === col.id
+                  ? 'bg-[var(--storefront-accent-dim)] text-[var(--storefront-accent)]'
+                  : 'bg-secondary text-muted-foreground'
+              }`}
+            >
+              {col.icon}
+              {col.label}
+              <Badge variant="secondary" className="text-[10px] ml-1">
+                {barriersByStatus[col.id].length}
+              </Badge>
+            </button>
+          ))}
+        </div>
+
+        {/* Active column cards */}
+        <div className="space-y-2">
+          {barriersByStatus[activeColumn].map((barrier) => (
+            <BarrierCard
+              key={barrier.id}
+              barrier={barrier}
+              onClick={setSelectedBarrier}
+            />
+          ))}
+          {barriersByStatus[activeColumn].length === 0 && (
+            <div className="text-center text-[11px] text-muted-foreground py-8 bg-secondary/30 rounded-lg">
+              No barriers
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Detail Dialog */}
       <Dialog open={!!selectedBarrier} onOpenChange={() => setSelectedBarrier(null)}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-w-[calc(100vw-1.5rem)] sm:max-w-xl">
           {selectedBarrier && (
             <>
               <DialogHeader>
