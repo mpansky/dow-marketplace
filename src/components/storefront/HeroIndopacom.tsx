@@ -70,29 +70,32 @@ export function HeroIndopacom({ stats }: { stats: HeroStat[] }) {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 pt-14">
         <div className="max-w-5xl">
-          {/* Command label */}
-          <div className="animate-fade-in-up flex items-center gap-3 mb-6">
+          {/* Command label + ChBA badge */}
+          <div className="animate-fade-in-up flex items-center gap-3 mb-6 flex-wrap">
             <div className="h-px w-10 bg-indopacom" />
             <span className="text-xs font-semibold text-indopacom uppercase tracking-[0.2em]">
               U.S. Indo-Pacific Command
+            </span>
+            <span className="text-[10px] font-mono text-indopacom/60 uppercase tracking-wider px-2 py-0.5 border border-indopacom/20 rounded">
+              ChBA — Challenge-Based Acquisition
             </span>
           </div>
 
           {/* Display headline */}
           <h1 className="animate-fade-in-up animate-delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
             <span className="bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent">
-              Connecting Pacific
+              Arsenal of
             </span>
             <br />
             <span className="bg-gradient-to-r from-blue-100 to-indopacom bg-clip-text text-transparent">
-              Warfighters to Innovation
+              Freedom
             </span>
           </h1>
 
           {/* Subtext */}
           <p className="animate-fade-in-up animate-delay-2 text-base md:text-lg text-blue-200/50 max-w-2xl leading-relaxed mb-10">
-            Discover, match, and accelerate capability acquisition for maritime domain awareness,
-            expeditionary operations, and coalition interoperability across the Indo-Pacific theater.
+            Closing INDOPACOM kill chain gaps by unleashing American industry.
+            OT awards in days, not years. Challenge-Based Acquisition that puts DoW on a war footing.
           </p>
 
           {/* CTA buttons */}
@@ -102,7 +105,7 @@ export function HeroIndopacom({ stats }: { stats: HeroStat[] }) {
               className="text-sm font-semibold px-6 bg-indopacom hover:bg-indopacom/90 text-white"
               onClick={() => navigate('/challenges')}
             >
-              Explore Challenges
+              View Kill Chain Gaps
             </Button>
             <Button
               size="lg"

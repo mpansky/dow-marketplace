@@ -59,6 +59,9 @@ export interface StorefrontConfig {
   accentRgb: string
   priorityDomains: CapabilityDomain[]
   heroClass: string
+  visionTagline?: string
+  acquisitionBrand?: string
+  cadreDescription?: string
 }
 
 export interface Vendor {
@@ -280,4 +283,12 @@ export const PIPELINE_STAGE_LABELS: Record<PipelineStage, string> = {
   prototype_demo: 'Prototype Demo',
   ot_award: 'OT Award',
   performance_period: 'Performance Period',
+}
+
+export const BARRIER_CATEGORY_LABELS: Record<BarrierCategory, string> = {
+  policy: 'Policy',
+  process: 'Process',
+  technical: 'Technical',
+  cultural: 'Cultural',
+  financial: 'Financial',
 }

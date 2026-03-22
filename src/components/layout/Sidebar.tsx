@@ -24,6 +24,7 @@ const navByRole: Record<UserRole, NavItem[]> = {
     { label: 'Vendors', to: '/vendors', icon: <Building2 className="w-4 h-4" /> },
     { label: 'Market Research', to: '/market-research', icon: <FlaskConical className="w-4 h-4" /> },
     { label: 'OT Pipeline', to: '/pipeline', icon: <GitBranch className="w-4 h-4" /> },
+    { label: 'Breaking Barriers', to: '/barriers', icon: <AlertTriangle className="w-4 h-4" /> },
     { label: 'Analytics', to: '/analytics', icon: <BarChart3 className="w-4 h-4" /> },
   ],
   ndc: [
@@ -32,13 +33,14 @@ const navByRole: Record<UserRole, NavItem[]> = {
     { label: 'Discover', to: '/challenges', icon: <Compass className="w-4 h-4" /> },
     { label: 'Submissions', to: '/submissions', icon: <Inbox className="w-4 h-4" /> },
     { label: 'OT Pipeline', to: '/pipeline', icon: <GitBranch className="w-4 h-4" /> },
+    { label: 'Breaking Barriers', to: '/barriers', icon: <AlertTriangle className="w-4 h-4" /> },
   ],
   admin: [
     { label: 'Dashboard', to: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
     { label: 'Challenges', to: '/challenges', icon: <Target className="w-4 h-4" /> },
     { label: 'Match Curation', to: '/admin/curation', icon: <ClipboardList className="w-4 h-4" /> },
     { label: 'Vendors', to: '/vendors', icon: <Building2 className="w-4 h-4" /> },
-    { label: 'Barriers', to: '/admin/barriers', icon: <AlertTriangle className="w-4 h-4" /> },
+    { label: 'Breaking Barriers', to: '/barriers', icon: <AlertTriangle className="w-4 h-4" /> },
     { label: 'OT Pipeline', to: '/pipeline', icon: <GitBranch className="w-4 h-4" /> },
     { label: 'Reports', to: '/admin/reports', icon: <FileText className="w-4 h-4" /> },
   ],

@@ -91,11 +91,14 @@ export function HeroCybercom({ stats }: { stats: HeroStat[] }) {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16">
         <div className="max-w-5xl">
-          {/* Command label */}
-          <div className="animate-fade-in-up flex items-center gap-3 mb-6">
+          {/* Command label + ChBA badge */}
+          <div className="animate-fade-in-up flex items-center gap-3 mb-6 flex-wrap">
             <div className="h-px w-10 bg-cybercom" />
             <span className="text-xs font-semibold text-cybercom uppercase tracking-[0.2em] font-mono">
               U.S. Cyber Command
+            </span>
+            <span className="text-[10px] font-mono text-cybercom/60 uppercase tracking-wider px-2 py-0.5 border border-[#39FF14]/20 rounded">
+              ChBA — Challenge-Based Acquisition
             </span>
           </div>
 
@@ -112,8 +115,8 @@ export function HeroCybercom({ stats }: { stats: HeroStat[] }) {
 
           {/* Subtext */}
           <p className="animate-fade-in-up animate-delay-2 text-base md:text-lg text-green-200/40 max-w-2xl leading-relaxed mb-10">
-            Accelerate zero-trust adoption, empower hunt-forward teams, and integrate AI-powered
-            threat detection across persistent cyber operations.
+            Radical acceleration in cyber capability acquisition. Maximize consideration and awardability
+            of alternative solutions that close kill chains — OT awards in days, not years.
           </p>
 
           {/* CTA buttons */}

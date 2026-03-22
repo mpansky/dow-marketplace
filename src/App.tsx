@@ -4,22 +4,18 @@ import { AppLayout } from './components/layout/AppLayout'
 import { RoleSelector } from './components/layout/RoleSelector'
 import { StorefrontHome } from './components/storefront/StorefrontHome'
 import { Dashboard } from './components/dashboard/Dashboard'
+import { ChallengeList } from './components/challenge/ChallengeList'
+import { VendorDirectory } from './components/vendor/VendorDirectory'
+import { PipelineBoard } from './components/pipeline/PipelineBoard'
+import { CurationQueue } from './components/admin/CurationQueue'
+import { BarrierTracker } from './components/barriers/BarrierTracker'
 
 // Placeholder components for pages not yet built
-function ChallengeList() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Challenge List</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
 function ChallengeBuilder() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Challenge Builder</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
 function ChallengeDetail() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Challenge Detail</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function VendorDirectory() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Vendor Directory</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function PipelineBoard() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Pipeline Board</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
 function MarketResearch() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Market Research</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
@@ -32,12 +28,6 @@ function SubmissionTracker() {
 }
 function SubmissionBuilder() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Submission Builder</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function CurationQueue() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Curation Queue</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function BarrierTracker() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Barrier Tracker</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
 function ReportGenerator() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Report Generator</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
@@ -73,6 +63,7 @@ function AppRoutes() {
         <Route path="/submissions/new/:challengeId" element={<SubmissionBuilder />} />
         <Route path="/admin/curation" element={<CurationQueue />} />
         <Route path="/admin/barriers" element={<BarrierTracker />} />
+        <Route path="/barriers" element={<BarrierTracker />} />
         <Route path="/admin/reports" element={<ReportGenerator />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
