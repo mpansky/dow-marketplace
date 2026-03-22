@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Search, Bell, ArrowLeftRight, Menu } from 'lucide-react'
 import { useApp } from '@/context/AppContext'
 import { Button } from '@/components/ui/button'
@@ -5,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { storefronts } from '@/lib/themes'
 import { getInitials } from '@/lib/utils'
 import type { StorefrontId } from '@/types'
+import { cn } from '@/lib/utils'
 
 const storefrontTabs: { id: StorefrontId; label: string }[] = [
   { id: 'indopacom', label: 'INDOPACOM' },
@@ -17,13 +19,36 @@ const roleLabels = {
   admin: 'Admin',
 }
 
-export function TopNav() {
+interface TopNavProps {
+  transparent?: boolean
+}
+
+export function TopNav({ transparent = false }: TopNavProps) {
   const { state, dispatch } = useApp()
   const sf = storefronts[state.currentStorefront]
   const unreadCount = state.notifications.filter((n) => !n.read && n.role === state.currentRole).length
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    if (!transparent) return
+    function handleScroll() {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [transparent])
+
+  const isTransparent = transparent && !scrolled
 
   return (
-    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-md flex items-center px-3 md:px-4 gap-2 md:gap-4 sticky top-0 z-40">
+    <header
+      className={cn(
+        'h-14 flex items-center px-3 md:px-4 gap-2 md:gap-4 sticky top-0 z-40 transition-all duration-300',
+        isTransparent
+          ? 'bg-transparent border-b border-transparent'
+          : 'bg-card/80 backdrop-blur-md border-b border-border'
+      )}
+    >
       {/* Mobile Hamburger */}
       <Button
         variant="ghost"
@@ -44,16 +69,22 @@ export function TopNav() {
       </div>
 
       {/* Storefront Switcher - desktop only */}
-      <div className="hidden md:flex items-center gap-1 bg-secondary rounded-lg p-0.5">
+      <div className={cn(
+        'hidden md:flex items-center gap-1 rounded-lg p-0.5',
+        isTransparent ? 'bg-white/5' : 'bg-secondary'
+      )}>
         {storefrontTabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => dispatch({ type: 'SET_STOREFRONT', payload: tab.id })}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
+            className={cn(
+              'px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200',
               state.currentStorefront === tab.id
-                ? 'bg-card text-foreground shadow-sm'
+                ? isTransparent
+                  ? 'bg-white/10 text-foreground shadow-sm'
+                  : 'bg-card text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
-            }`}
+            )}
             style={
               state.currentStorefront === tab.id
                 ? { borderBottom: `2px solid ${storefronts[tab.id].accentColor}` }
@@ -68,11 +99,17 @@ export function TopNav() {
       {/* Global Search Trigger - desktop */}
       <button
         onClick={() => dispatch({ type: 'SET_SEARCH_OPEN', payload: true })}
-        className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-secondary rounded-lg text-sm text-muted-foreground hover:text-foreground transition-colors flex-1 max-w-md"
+        className={cn(
+          'hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-foreground transition-colors flex-1 max-w-md',
+          isTransparent ? 'bg-white/5' : 'bg-secondary'
+        )}
       >
         <Search className="w-4 h-4" />
         <span>Search challenges, vendors, capabilities...</span>
-        <kbd className="ml-auto text-xs bg-background px-1.5 py-0.5 rounded border border-border font-mono">
+        <kbd className={cn(
+          'ml-auto text-xs px-1.5 py-0.5 rounded border font-mono',
+          isTransparent ? 'bg-white/5 border-white/10' : 'bg-background border-border'
+        )}>
           ⌘K
         </kbd>
       </button>
@@ -117,7 +154,10 @@ export function TopNav() {
 
       {/* User Avatar */}
       {state.currentUser && (
-        <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-xs font-medium flex-shrink-0">
+        <div className={cn(
+          'w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0',
+          isTransparent ? 'bg-white/10' : 'bg-secondary'
+        )}>
           {getInitials(state.currentUser.name)}
         </div>
       )}
