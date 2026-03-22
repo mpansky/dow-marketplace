@@ -9,7 +9,7 @@ import type { CapabilityDomain, PlatformSource } from '@/types'
 import {
   Target, Building2, GitBranch, TrendingUp, ArrowRight, ArrowUpRight,
   Rocket, Shield, Zap, Clock, Timer, CheckCircle2, AlertTriangle,
-  Users, Route, Globe, Sprout,
+  Users, Route, Sprout,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
