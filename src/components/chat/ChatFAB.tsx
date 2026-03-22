@@ -13,7 +13,7 @@ export function ChatFAB() {
   return (
     <button
       onClick={handleOpen}
-      className="fab-glow group fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+      className="fab-glow group fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
       style={{ backgroundColor: 'var(--storefront-accent)' }}
       aria-label="Ask Marketplace AI"
     >

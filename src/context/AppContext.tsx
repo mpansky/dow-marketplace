@@ -27,6 +27,7 @@ interface AppState {
   sidebarCollapsed: boolean
   chatOpen: boolean
   searchOpen: boolean
+  mobileSidebarOpen: boolean
 }
 
 type AppAction =
@@ -48,6 +49,7 @@ type AppAction =
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'SET_CHAT_OPEN'; payload: boolean }
   | { type: 'SET_SEARCH_OPEN'; payload: boolean }
+  | { type: 'SET_MOBILE_SIDEBAR_OPEN'; payload: boolean }
 
 const initialState: AppState = {
   currentRole: 'pae',
@@ -64,6 +66,7 @@ const initialState: AppState = {
   sidebarCollapsed: false,
   chatOpen: false,
   searchOpen: false,
+  mobileSidebarOpen: false,
 }
 
 function appReducer(state: AppState, action: AppAction): AppState {
@@ -132,6 +135,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, chatOpen: action.payload }
     case 'SET_SEARCH_OPEN':
       return { ...state, searchOpen: action.payload }
+    case 'SET_MOBILE_SIDEBAR_OPEN':
+      return { ...state, mobileSidebarOpen: action.payload }
     default:
       return state
   }

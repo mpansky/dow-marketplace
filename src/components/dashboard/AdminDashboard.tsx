@@ -203,7 +203,7 @@ export function AdminDashboard() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
             {barriersByCategory.map((b) => (
               <div key={b.category} className="text-center p-3 bg-secondary rounded-lg">
                 <div className="text-lg font-bold font-mono">{b.count}</div>

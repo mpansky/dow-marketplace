@@ -47,7 +47,7 @@ export function ChatPanel() {
 
   return (
     <div
-      className={`glass-panel fixed right-0 top-14 z-40 flex h-[calc(100vh-3.5rem)] w-[420px] flex-col border-l border-border/30 transition-transform duration-300 ease-in-out ${
+      className={`glass-panel fixed top-14 z-40 flex h-[calc(100vh-3.5rem)] flex-col border-l border-border/30 transition-transform duration-300 ease-in-out inset-x-0 sm:inset-x-auto sm:right-0 w-full sm:w-[420px] ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >

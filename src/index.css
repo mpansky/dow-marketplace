@@ -139,6 +139,25 @@ body {
   background-size: 40px 40px;
 }
 
+/* Mobile: hide scrollbar on horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile sidebar overlay backdrop */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
 /* Glassmorphism for chat panel */
 .glass-panel {
   background: rgba(10, 10, 15, 0.85);
