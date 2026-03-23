@@ -46,6 +46,7 @@ type AppAction =
   | { type: 'ADD_MATCH'; payload: Match }
   | { type: 'UPDATE_MATCH'; payload: Match }
   | { type: 'UPDATE_PIPELINE_ENTRY'; payload: PipelineEntry }
+  | { type: 'UPDATE_VENDOR'; payload: Vendor }
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'SET_CHAT_OPEN'; payload: boolean }
   | { type: 'SET_SEARCH_OPEN'; payload: boolean }
@@ -128,6 +129,11 @@ function appReducer(state: AppState, action: AppAction): AppState {
         pipelineEntries: state.pipelineEntries.map((p) =>
           p.id === action.payload.id ? action.payload : p
         ),
+      }
+    case 'UPDATE_VENDOR':
+      return {
+        ...state,
+        vendors: state.vendors.map((v) => (v.id === action.payload.id ? action.payload : v)),
       }
     case 'TOGGLE_SIDEBAR':
       return { ...state, sidebarCollapsed: !state.sidebarCollapsed }

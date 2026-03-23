@@ -9,8 +9,8 @@ import { VendorDirectory } from './components/vendor/VendorDirectory'
 import { PipelineBoard } from './components/pipeline/PipelineBoard'
 import { CurationQueue } from './components/admin/CurationQueue'
 import { BarrierTracker } from './components/barriers/BarrierTracker'
+import { ProfileBuilder } from './components/profile/ProfileBuilder'
 
-// Placeholder components for pages not yet built
 function ChallengeBuilder() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Challenge Builder</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
@@ -19,9 +19,6 @@ function ChallengeDetail() {
 }
 function MarketResearch() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Market Research</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function ProfileBuilder() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Profile Builder</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
 function SubmissionTracker() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Submission Tracker</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
