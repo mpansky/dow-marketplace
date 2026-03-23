@@ -1,4 +1,4 @@
-import { Sparkles, Zap, Shield, Target, BarChart3, Globe } from 'lucide-react'
+import { Sparkles, Zap, Shield, Target, ChartBar as BarChart3, Globe } from 'lucide-react'
 
 const features = [
   {
@@ -41,7 +41,7 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <section id="features" className="py-24 px-8">
+    <section id="about" className="py-24 px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="landing-reveal">

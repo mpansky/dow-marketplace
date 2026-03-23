@@ -8,7 +8,7 @@ export function LandingHero() {
   }
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-8 landing-grid">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-8 landing-grid pt-20">
       {/* Background layers */}
       <NetworkBackground />
       <div
@@ -25,11 +25,6 @@ export function LandingHero() {
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--storefront-accent)]">
             Department of the Warfighter
           </span>
-        </div>
-
-        {/* Logo */}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center font-bold text-xl mb-8 fab-glow">
-          DW
         </div>
 
         {/* Headline */}

@@ -7,7 +7,7 @@ const stats = [
 
 export function LandingStats() {
   return (
-    <section className="py-16 px-8 bg-[#08080d] border-t border-b border-white/5">
+    <section id="mission" className="py-16 px-8 bg-[#08080d] border-t border-b border-white/5">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
         {stats.map((stat) => (
           <div key={stat.label} className="landing-reveal">

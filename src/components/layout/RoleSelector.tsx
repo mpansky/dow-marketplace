@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useApp } from '@/context/AppContext'
 import type { UserRole } from '@/types'
+import { LandingHeader } from '@/components/landing/LandingHeader'
 import { LandingHero } from '@/components/landing/LandingHero'
 import { LandingFeatures } from '@/components/landing/LandingFeatures'
 import { LandingStats } from '@/components/landing/LandingStats'
@@ -38,6 +39,7 @@ export function RoleSelector() {
 
   return (
     <div className="min-h-screen bg-background">
+      <LandingHeader />
       <LandingHero />
       <LandingFeatures />
       <LandingStats />
