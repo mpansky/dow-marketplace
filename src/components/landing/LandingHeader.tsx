@@ -31,14 +31,14 @@ export function LandingHeader() {
             className="relative rounded-2xl transition-all duration-300"
             style={{
               background: isScrolled
-                ? 'rgba(10, 10, 15, 0.85)'
-                : 'rgba(10, 10, 15, 0.7)',
-              backdropFilter: 'blur(32px)',
-              WebkitBackdropFilter: 'blur(32px)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+                ? 'rgba(10, 10, 15, 0.5)'
+                : 'rgba(10, 10, 15, 0.3)',
+              backdropFilter: 'blur(32px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(32px) saturate(150%)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               boxShadow: isScrolled
-                ? '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
-                : '0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                ? '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06)'
+                : '0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
             }}
           >
             <div className="flex items-center justify-between px-6 py-2">
@@ -125,8 +125,6 @@ export function LandingHeader() {
         </div>
       </header>
 
-      {/* Spacer to prevent content from hiding under fixed header */}
-      <div className="h-14" />
     </>
   )
 }
