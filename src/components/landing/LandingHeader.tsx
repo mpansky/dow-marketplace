@@ -23,7 +23,7 @@ export function LandingHeader() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'py-3' : 'py-4'
+          isScrolled ? 'py-2' : 'py-3'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6">
@@ -31,28 +31,25 @@ export function LandingHeader() {
             className="relative rounded-2xl transition-all duration-300"
             style={{
               background: isScrolled
-                ? 'rgba(10, 10, 15, 0.8)'
-                : 'rgba(10, 10, 15, 0.6)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+                ? 'rgba(10, 10, 15, 0.85)'
+                : 'rgba(10, 10, 15, 0.7)',
+              backdropFilter: 'blur(32px)',
+              WebkitBackdropFilter: 'blur(32px)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               boxShadow: isScrolled
-                ? '0 8px 32px rgba(0, 0, 0, 0.3)'
-                : '0 4px 16px rgba(0, 0, 0, 0.2)',
+                ? '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+                : '0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
             }}
           >
-            <div className="flex items-center justify-between px-6 py-3">
+            <div className="flex items-center justify-between px-6 py-2">
               {/* Logo */}
               <button
                 onClick={() => scrollTo('hero')}
-                className="flex items-center gap-3 group"
+                className="flex items-center group"
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center font-bold text-sm transition-transform duration-200 group-hover:scale-105">
                   DW
                 </div>
-                <span className="hidden sm:block text-sm font-semibold tracking-tight">
-                  Department of the Warfighter
-                </span>
               </button>
 
               {/* Desktop Navigation */}
@@ -129,7 +126,7 @@ export function LandingHeader() {
       </header>
 
       {/* Spacer to prevent content from hiding under fixed header */}
-      <div className="h-20" />
+      <div className="h-14" />
     </>
   )
 }
