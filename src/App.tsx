@@ -5,6 +5,7 @@ import { RoleSelector } from './components/layout/RoleSelector'
 import { StorefrontHome } from './components/storefront/StorefrontHome'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { ChallengeList } from './components/challenge/ChallengeList'
+import { ChallengeDetail } from './components/challenge/ChallengeDetail'
 import { VendorDirectory } from './components/vendor/VendorDirectory'
 import { PipelineBoard } from './components/pipeline/PipelineBoard'
 import { CurationQueue } from './components/admin/CurationQueue'
@@ -13,9 +14,6 @@ import { ProfileBuilder } from './components/profile/ProfileBuilder'
 
 function ChallengeBuilder() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Challenge Builder</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
-}
-function ChallengeDetail() {
-  return <div className="p-6"><h1 className="text-2xl font-bold">Challenge Detail</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>
 }
 function MarketResearch() {
   return <div className="p-6"><h1 className="text-2xl font-bold">Market Research</h1><p className="text-muted-foreground mt-2">Coming soon.</p></div>

@@ -38,6 +38,30 @@ export type BudgetRange = '100k_5m' | '5m_25m' | '25m_plus'
 
 export type ClassificationLevel = 'unclassified' | 'cui' | 'secret'
 
+export type OpportunityType = 'ota' | 'cso' | 'baa' | 'rfi' | 'sbir' | 'sttr' | 'rwp' | 'csb' | 'other'
+
+export type AgreementType = 'ota' | 'ffp' | 'tm' | 'cpff' | 'cpaf' | 'idiq' | 'bpa' | 'other'
+
+export type FundingType = 'rdte' | 'om' | 'procurement' | 'milcon' | 'other'
+
+export type SetAsideType = 'none' | 'small_business' | 'eight_a' | 'hubzone' | 'sdvosb' | 'wosb' | 'edwosb'
+
+export type ChallengeContactRole = 'technical_poc' | 'contracting_officer' | 'administrative_poc' | 'program_manager'
+
+export type ChallengeDateType =
+  | 'published'
+  | 'questions_due'
+  | 'industry_day'
+  | 'qa_posted'
+  | 'submission_deadline'
+  | 'evaluation_complete'
+  | 'anticipated_award'
+  | 'pop_start'
+  | 'pop_end'
+  | 'amendment'
+
+export type ChallengeDocumentType = 'solicitation' | 'amendment' | 'qa_document' | 'reference' | 'attachment' | 'other'
+
 export interface User {
   id: string
   name: string
@@ -122,6 +146,50 @@ export interface HealthScore {
   complianceReadiness: number
 }
 
+export interface ChallengeContact {
+  id?: string
+  role: ChallengeContactRole
+  name: string
+  title: string
+  organization: string
+  email: string
+  phone?: string
+  notes?: string
+}
+
+export interface ChallengeDate {
+  id?: string
+  dateType: ChallengeDateType
+  dateValue: string
+  label?: string
+  location?: string
+  notes?: string
+}
+
+export interface ChallengeEvaluationCriterion {
+  id?: string
+  name: string
+  description: string
+  weight: number
+  sortOrder: number
+}
+
+export interface ChallengeTag {
+  id?: string
+  tagType: 'domain' | 'subcategory' | 'keyword' | 'technology'
+  tagValue: string
+}
+
+export interface ChallengeAttachment {
+  id?: string
+  documentType: ChallengeDocumentType
+  fileName: string
+  storagePath: string
+  fileSize: number
+  mimeType: string
+  uploadedAt: string
+}
+
 export interface Challenge {
   id: string
   storefrontId: StorefrontId
@@ -149,6 +217,42 @@ export interface Challenge {
   closesAt: string
   submissionCount: number
   matchedVendorIds: string[]
+
+  solicitationNumber?: string
+  subtitle?: string
+  opportunityType?: OpportunityType
+  orgName?: string
+  orgAbbreviation?: string
+  orgParentCommand?: string
+  orgOfficeSymbol?: string
+  orgLogoUrl?: string
+  orgWebsite?: string
+  background?: string
+  objective?: string
+  scope?: string
+  deliverables?: string
+  successCriteria?: string
+  agreementType?: AgreementType
+  fundingType?: FundingType
+  contractVehicle?: string
+  placeOfPerformance?: string
+  popDuration?: string
+  optionPeriods?: string
+  dataRights?: string
+  citizenshipRequirements?: string
+  setAsideType?: SetAsideType
+  naicsCodes?: string[]
+  submissionPortalUrl?: string
+  submissionFormat?: string
+  requiredSections?: string[]
+  requiredAttachments?: string[]
+  maxSubmissionsPerVendor?: number
+
+  contacts?: ChallengeContact[]
+  keyDates?: ChallengeDate[]
+  evaluationCriteria?: ChallengeEvaluationCriterion[]
+  tags?: ChallengeTag[]
+  attachments?: ChallengeAttachment[]
 }
 
 export interface Submission {
@@ -238,6 +342,61 @@ export interface Citation {
   label: string
 }
 
+export const CHALLENGE_STATUS_LABELS: Record<ChallengeStatus, string> = {
+  draft: 'Draft',
+  published: 'Published',
+  submissions_open: 'Submissions Open',
+  evaluation: 'Evaluation',
+  shortlisted: 'Shortlisted',
+  awarded: 'Awarded',
+  closed: 'Closed',
+}
+
+export const CHALLENGE_STATUS_COLORS: Record<ChallengeStatus, string> = {
+  draft: '#6b7280',
+  published: '#3b82f6',
+  submissions_open: '#22c55e',
+  evaluation: '#eab308',
+  shortlisted: '#8b5cf6',
+  awarded: '#10b981',
+  closed: '#6b7280',
+}
+
+export const CLASSIFICATION_LABELS: Record<ClassificationLevel, string> = {
+  unclassified: 'UNCLASSIFIED',
+  cui: 'CUI',
+  secret: 'SECRET',
+}
+
+export const EVALUATION_LABELS: Record<EvaluationApproach, string> = {
+  prototype_demo: 'Prototype Demo',
+  technical_assessment: 'Technical Assessment',
+  oral_presentation: 'Oral Presentation',
+  combined: 'Combined Evaluation',
+}
+
+export const COMPETITION_LABELS: Record<CompetitionType, string> = {
+  open: 'Open Competition',
+  directed: 'Directed',
+  domain_limited: 'Domain Limited',
+}
+
+export const SUBMISSION_STATUS_LABELS: Record<SubmissionStatus, string> = {
+  submitted: 'Submitted',
+  under_review: 'Under Review',
+  evaluation: 'Evaluation',
+  shortlisted: 'Shortlisted',
+  awarded: 'Awarded',
+  not_selected: 'Not Selected',
+}
+
+export const DOMAIN_COLORS: Record<CapabilityDomain, string> = {
+  cuas: '#ef4444',
+  aiml: '#3b82f6',
+  cyber: '#22c55e',
+  autonomy: '#f59e0b',
+}
+
 export const DOMAIN_LABELS: Record<CapabilityDomain, string> = {
   cuas: 'cUAS / Counter-Drone',
   cyber: 'Cyber / Zero Trust',
@@ -291,4 +450,65 @@ export const BARRIER_CATEGORY_LABELS: Record<BarrierCategory, string> = {
   technical: 'Technical',
   cultural: 'Cultural',
   financial: 'Financial',
+}
+
+export const OPPORTUNITY_TYPE_LABELS: Record<OpportunityType, string> = {
+  ota: 'Other Transaction Authority (OTA)',
+  cso: 'Commercial Solutions Opening (CSO)',
+  baa: 'Broad Agency Announcement (BAA)',
+  rfi: 'Request for Information (RFI)',
+  sbir: 'SBIR',
+  sttr: 'STTR',
+  rwp: 'Rapid Innovation Fund (RWP)',
+  csb: 'Challenge / Prize',
+  other: 'Other',
+}
+
+export const AGREEMENT_TYPE_LABELS: Record<AgreementType, string> = {
+  ota: 'Other Transaction (OT)',
+  ffp: 'Firm Fixed Price (FFP)',
+  tm: 'Time & Materials (T&M)',
+  cpff: 'Cost Plus Fixed Fee (CPFF)',
+  cpaf: 'Cost Plus Award Fee (CPAF)',
+  idiq: 'IDIQ',
+  bpa: 'Blanket Purchase Agreement',
+  other: 'Other',
+}
+
+export const FUNDING_TYPE_LABELS: Record<FundingType, string> = {
+  rdte: 'RDT&E',
+  om: 'O&M',
+  procurement: 'Procurement',
+  milcon: 'MILCON',
+  other: 'Other',
+}
+
+export const SET_ASIDE_LABELS: Record<SetAsideType, string> = {
+  none: 'Full & Open',
+  small_business: 'Small Business',
+  eight_a: '8(a)',
+  hubzone: 'HUBZone',
+  sdvosb: 'SDVOSB',
+  wosb: 'WOSB',
+  edwosb: 'EDWOSB',
+}
+
+export const CHALLENGE_CONTACT_ROLE_LABELS: Record<ChallengeContactRole, string> = {
+  technical_poc: 'Technical Point of Contact',
+  contracting_officer: 'Contracting Officer',
+  administrative_poc: 'Administrative POC',
+  program_manager: 'Program Manager',
+}
+
+export const CHALLENGE_DATE_TYPE_LABELS: Record<ChallengeDateType, string> = {
+  published: 'Published',
+  questions_due: 'Questions Due',
+  industry_day: 'Industry Day',
+  qa_posted: 'Q&A Posted',
+  submission_deadline: 'Submission Deadline',
+  evaluation_complete: 'Evaluation Complete',
+  anticipated_award: 'Anticipated Award',
+  pop_start: 'Period of Performance Start',
+  pop_end: 'Period of Performance End',
+  amendment: 'Amendment',
 }
